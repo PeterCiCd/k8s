@@ -15,5 +15,5 @@ spec:
         app: demospringalien  
     spec:        
       containers:  
-      - image: <Your dockerhub username>/springali:11
+      - image:  nexus.docker.internal:5000/repository/demo/service-a:latest
       name: demospringalien
