@@ -1,19 +1,23 @@
-apiVersion: apps/v1                       
-kind: Deployment                       
-metadata:                         
-  labels:                           
-    app: demospringalien  
-  name: demospringalien
-spec:                         
-  replicas: 2                 
-  selector:                           
-    matchLabels:               
-      app: demospringalien 
-  template:                         
-    metadata:                   
-      labels:                 
-        app: demospringalien  
-    spec:        
-      containers:  
-      - image:  nexus.docker.internal:5000/repository/demo/service-a:latest
-      name: demospringalien
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: server4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server4
+  template:
+    metadata:
+      name: server4
+      labels:
+        app: server4
+    spec:
+      containers:
+        - name: server4
+          image: nexus.docker.internal:5000/repository/demo/service-a:latest
+          ports:
+            - containerPort: 8999
+      imagePullSecrets:
+        - name: regsecret
+        
