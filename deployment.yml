@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: server4
-          image: nexus.docker.internal:5000/repository/demo/service-a:latest
+          image: petercicd/service-a:latest
           ports:
             - containerPort: 8999
       imagePullSecrets:
