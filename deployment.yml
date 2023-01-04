@@ -18,6 +18,6 @@ spec:
           image: petercicd/service-a:latest
           ports:
             - containerPort: 8999
+              protocol: TCP
       imagePullSecrets:
         - name: regsecret
-        
