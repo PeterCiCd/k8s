@@ -9,7 +9,7 @@ spec:
       port: 8089
       targetPort: 8999
   selector:
-    project: server4
+    app: server4
   type: LoadBalancer
 
 status:
