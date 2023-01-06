@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: service4
+  name: service-a
 spec:
   ports:
     - name: 80-tcp
@@ -9,7 +9,7 @@ spec:
       port: 8089
       targetPort: 8999
   selector:
-    app: server4
+    app: service-a
   type: LoadBalancer
 
 status:

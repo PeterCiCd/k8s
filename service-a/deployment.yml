@@ -1,0 +1,23 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: service-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-a
+  template:
+    metadata:
+      name: service-a
+      labels:
+        app: service-a
+    spec:
+      containers:
+        - name: service-a
+          image: petercicd/service-a:latest
+          ports:
+            - containerPort: 8999
+              protocol: TCP
+      imagePullSecrets:
+        - name: regsecret

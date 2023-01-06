@@ -1,21 +1,21 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: server4
+  name: service-b
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: server4
+      app: service-b
   template:
     metadata:
-      name: server4
+      name: service-b
       labels:
-        app: server4
+        app: service-b
     spec:
       containers:
-        - name: server4
-          image: petercicd/service-a:latest
+        - name: service-b
+          image: petercicd/service-b:latest
           ports:
             - containerPort: 8999
               protocol: TCP
