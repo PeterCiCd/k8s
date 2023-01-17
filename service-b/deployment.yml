@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: service-b
-          image: petercicd/service-b:latest
+          image: 192.168.0.146:5000/repository/demo/service-b:latest
           ports:
             - containerPort: 8999
               protocol: TCP
