@@ -1,0 +1,74 @@
+pipeline {
+    agent
+     {
+        label "mvn_agent"
+    }
+    parameters {
+        choice (
+            name: 'DEPLOY_SERVICE_A',
+            choices: ['no', 'yes'],
+            description: 'Deploy service a'
+        )
+        choice (
+            name: 'DEPLOY_SERVICE_B',
+            choices: ['no', 'yes'],
+            description: 'Deploy service b'
+        )
+    }
+    stages{
+        stage('Pull') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'main', url: 'https://github.com/PeterCiCd/k8s.git'
+                sh 'ls -il'
+            }
+        }
+        
+       stage("Deployment to K8s service A"){
+           when {
+              expression { params.DEPLOY_SERVICE_A == 'yes' }
+           }           
+           steps {
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'TestKube', namespace: 'default', serverUrl: 'http://192.168.0.154:6443']]) {
+                    // some block
+                    sh ''' 
+                    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+                    ls
+                    chmod +x ./kubectl
+                    ./kubectl cluster-info
+                    ./kubectl config view 
+                    ./kubectl apply -f service-a/deployment.yml
+                    ./kubectl apply -f service-a/service.yml
+                    '''
+                }
+           }
+       }
+       
+       stage("Deployment to K8s service B"){
+           when {
+              expression { params.DEPLOY_SERVICE_B == 'yes' }
+           }           
+           steps {
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'docker-desktop', contextName: '', credentialsId: 'TestKube', namespace: 'default', serverUrl: 'http://192.168.0.154:6443']]) {
+                    // some block
+                    sh ''' 
+                    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+                    ls
+                    chmod +x ./kubectl
+                    ./kubectl cluster-info
+                    ./kubectl config view 
+                    ./kubectl apply -f service-b/deployment.yml
+                    ./kubectl apply -f service-b/service.yml
+                    '''
+                }
+           }
+       }       
+
+    }
+    post{
+        always{
+            // junit 'target/surefire-reports/**/*.xml'
+            cleanWs()
+        }
+    }
+}
