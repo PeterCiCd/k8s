@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-b
+spec:
+  ports:
+    - name: 80-tcp
+      protocol: TCP
+      port: 8088
+      targetPort: 8999
+  selector:
+    app: server4
+  type: LoadBalancer
+
+status:
+  loadBalancer: {}

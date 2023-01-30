@@ -1,0 +1,23 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: service-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-b
+  template:
+    metadata:
+      name: service-b
+      labels:
+        app: service-b
+    spec:
+      containers:
+        - name: service-b
+          image: petercicd/service-b:latest
+          ports:
+            - containerPort: 8999
+              protocol: TCP
+      imagePullSecrets:
+        - name: regsecretcloud
