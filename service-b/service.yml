@@ -9,7 +9,7 @@ spec:
       port: 8088
       targetPort: 8999
   selector:
-    app: server4
+    app: service-b
   type: LoadBalancer
 
 status:
