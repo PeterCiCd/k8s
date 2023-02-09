@@ -37,8 +37,8 @@ pipeline {
                     chmod +x ./kubectl
                     ./kubectl cluster-info
                     ./kubectl config view 
-                    ./kubectl apply -f service-a/deployment.yml
-                    ./kubectl apply -f service-a/service.yml
+                    ./kubectl replace --force -f service-a/deployment.yml
+                    ./kubectl replace --force -f service-a/service.yml
                     '''
                 }
            }
@@ -57,8 +57,8 @@ pipeline {
                     chmod +x ./kubectl
                     ./kubectl cluster-info
                     ./kubectl config view 
-                    ./kubectl apply -f service-b/deployment.yml
-                    ./kubectl apply -f service-b/service.yml
+                    ./kubectl replace --force -f service-b/deployment.yml
+                    ./kubectl replace --force -f service-b/service.yml
                     '''
                 }
            }
