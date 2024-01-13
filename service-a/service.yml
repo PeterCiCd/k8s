@@ -11,6 +11,7 @@ spec:
   selector:
     app:  service-a
   type: LoadBalancer
-
+  externalIPs:
+  - 192.168.0.120
 status:
   loadBalancer: {}
